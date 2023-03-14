@@ -37,11 +37,9 @@ ul {
 
 .menu {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: center;
-  height: 50px;
-  border-bottom: 1px solid #1c1c1d;
-  background-color: rgb(94, 56, 129);
+  height: 70px;
 }
 
 .menu ul {
@@ -53,6 +51,7 @@ ul {
 }
 
 .menu ul a {
+  background-color: rgb(94, 56, 129);
   border: 1px solid white;
   color: white;
   padding: 7px 15px;
