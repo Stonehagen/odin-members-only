@@ -12,10 +12,19 @@ router.get('/', (req, res) => {
 
 router.get('/sign-up', (req, res) => res.render('signUp'));
 router.post('/sign-up', [
-  check('firstname').exists(),
-  check('lastname').exists(),
-  check('email').normalizeEmail().isEmail(),
-  check('password').exists(),
+  check('firstname')
+    .isLength({ min: 3 })
+    .withMessage('Minimum 3 charcters required!')
+    .escape(),
+  check('lastname')
+    .isLength({ min: 3 })
+    .withMessage('Minimum 3 charcters required!')
+    .escape(),
+  check('email').normalizeEmail().isEmail().escape(),
+  check('password')
+    .isLength({ min: 8 })
+    .withMessage('Minimum 3 charcters required!')
+    .escape(),
   check('passwordconfim')
     .exists()
     .custom((value, { req }) => value === req.body.password),
