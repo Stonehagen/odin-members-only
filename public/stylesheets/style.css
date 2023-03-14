@@ -52,7 +52,6 @@ ul {
 
 .menu ul a {
   background-color: rgb(94, 56, 129);
-  border: 1px solid white;
   color: white;
   padding: 7px 15px;
   border-radius: 15px;
@@ -66,7 +65,43 @@ ul {
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 100px 250px;
+  grid-auto-rows: 40px;
+  column-gap: 5px;
+  row-gap: 15px;
+  align-items: center;
+}
+
+form input {
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+form input:focus {
+  border: none;
+}
+
+form button {
+  grid-column-start: 2;
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  background-color: rgb(94, 56, 129);
+  color: white;
+  border: none;
+  place-self: end;
+}
+
+form button:hover {
+  background-color: #370e42;
+  cursor: pointer;
 }
