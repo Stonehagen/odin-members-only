@@ -5,5 +5,5 @@ block content
   if user
     .messageWindow
       form(action='/newMessage' method='POST')
-        input(name='message' placeholde='enter your message' type='text')
+        input.messageInput(name='message' placeholde='enter your message' type='text')
         button.messageButton Send Message
