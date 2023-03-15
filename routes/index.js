@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { body, check, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const User = require('../models/user');
@@ -21,17 +21,14 @@ router.post('/sign-up', [
     .withMessage('Minimum 3 charcters required!')
     .escape(),
   check('email').normalizeEmail().isEmail().escape(),
-  check('password')
-    .isLength({ min: 8 })
-    .withMessage('Minimum 3 charcters required!')
-    .escape(),
+  check('password').escape(),
   check('passwordconfim')
     .exists()
     .custom((value, { req }) => value === req.body.password),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      next(errors);
+      res.render('signUp', { errors: errors.array() });
       return;
     }
     bcrypt
