@@ -1,8 +1,6 @@
 body {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
+  grid-template-rows: 120px 50px auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #ebe7e6;
   color: #151515;
@@ -72,7 +70,6 @@ form .errorMsg {
 }
 
 .header {
-  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +88,6 @@ form .errorMsg {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
 }
 
 ul.listMenu {
@@ -116,19 +112,20 @@ li.listButton a:hover {
 
 .main {
   display: grid;
-  height: 100%;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 50px;
   justify-items: center;
 }
 
 .messageBoard {
+  height:calc(100vh - 220px);
   grid-column: 2/3;
   width: min(800px, 100%);
   margin:0 auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
 }
 
 .posting {
@@ -157,7 +154,6 @@ li.listButton a:hover {
 
 .messageWindow {
   grid-column: 1/4;
-  height: 50px;
   align-items: center;
   justify-content: center;
   background-color: rgb(94, 56, 129);
