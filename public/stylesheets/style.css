@@ -19,6 +19,52 @@ ul {
   list-style: none;
 }
 
+
+
+form {
+  display: grid;
+  grid-template-columns: 100px 250px;
+  grid-auto-rows: 40px;
+  column-gap: 5px;
+  row-gap: 15px;
+  align-items: center;
+}
+
+form input {
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+form input:focus {
+  border: none;
+}
+
+form button {
+  grid-column-start: 2;
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  background-color: rgb(94, 56, 129);
+  color: white;
+  border: none;
+  place-self: end;
+}
+
+form button:hover {
+  background-color: #370e42;
+  cursor: pointer;
+}
+
+form .errorMsg {
+  grid-column: 1/3;
+  background-color: rgb(221, 165, 165);
+  padding: 10px 10px;
+  border-radius: 15px;
+}
+
 .header {
   height: 120px;
   display: flex;
@@ -66,52 +112,53 @@ li.listButton a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
 }
 
-form {
-  display: grid;
-  grid-template-columns: 100px 250px;
-  grid-auto-rows: 40px;
-  column-gap: 5px;
-  row-gap: 15px;
+.messageBoard {
+  flex-grow: 1;
+}
+
+.messageWindow {
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(94, 56, 129);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-form input {
-  height: 40px;
-  border: none;
-  border-radius: 15px;
-  padding: 0 10px;
+.messageWindow form {
+  padding: 0 5px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.messageWindow input {
+  max-width: 1000px;
+  flex-grow: 1;
+}
+
+.messageButton {
   font-size: 1.2em;
+  width: 150px;
+  color: rgb(94, 56, 129);
+  background-color: white;
 }
 
-form input:focus {
-  border: none;
-}
-
-form button {
-  grid-column-start: 2;
-  width: 100px;
-  height: 40px;
-  border-radius: 15px;
-  background-color: rgb(94, 56, 129);
+.messageButton:hover {
+  border: 1px solid white;
   color: white;
-  border: none;
-  place-self: end;
-}
-
-form button:hover {
-  background-color: #370e42;
   cursor: pointer;
 }
 
-form .errorMsg {
-  grid-column: 1/3;
-  background-color: rgb(221, 165, 165);
-  padding: 10px 10px;
-  border-radius: 15px;
-}
 
 p.infoText {
   max-width: 500px;
