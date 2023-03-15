@@ -138,8 +138,17 @@ li.listButton a:hover {
 }
 
 .posting h4 {
-  align-self: flex-end;
   margin-bottom: 0;
+}
+
+.postOptions  {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.postOptions form {
+  grid-template-columns: auto;
 }
 
 .posting h4 span {
@@ -205,3 +214,9 @@ h3.infoText {
   margin-top: 40%;
 }
 
+.deltePost {
+  align-self: flex-end;
+  height: 20px;
+  width: 40px;
+  font-size: 0.6em;
+}

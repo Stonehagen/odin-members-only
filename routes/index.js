@@ -21,6 +21,7 @@ router.get('/', (req, res, next) => {
     .then((posts) => {
       const formatPosts = posts.map((post) => {
         const newPost = {
+          id: post._id,
           title: post.title,
           text: post.text,
           timestamp: format.asString('dd.MM.yyyy - hh:mm', post.timestamp),
@@ -152,5 +153,17 @@ router.post('/admin', checkAuthenticated, [
       .catch((err) => next(err));
   },
 ]);
+
+router.post('/:id/delete', checkAuthenticated, (req, res, next) => {
+  if (!req.user.adminstatus) {
+    return res.redirect('/');
+  }
+  Post.findByIdAndRemove(req.params.id)
+    .exec()
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch((err) => next(err));
+});
 
 module.exports = router;

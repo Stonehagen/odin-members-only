@@ -8,7 +8,11 @@ block content
         p #{post.text}
         if user 
           if user.memberstatus
-            h4 #{post.author} <span>#{post.timestamp}</span>
+            .postOptions 
+              h4 #{post.author} <span>#{post.timestamp}</span>
+              if user.adminstatus 
+                form.deletPostForm(action=`/${post.id}/delete` method="POST")
+                  button.deltePost Delete
           else 
             p You have to be a Clubmember to see the Author of this message
         else 
