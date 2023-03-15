@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
+const format = require('date-format');
 
 const router = express.Router();
 const User = require('../models/user');
@@ -18,7 +19,16 @@ const checkAuthenticated = (req, res, next) => {
 router.get('/', (req, res, next) => {
   Post.find()
     .then((posts) => {
-      res.render('index', { posts, user: req.user });
+      const formatPosts = posts.map((post) => {
+        const newPost = {
+          title: post.title,
+          text: post.text,
+          timestamp: format.asString('dd.MM.yyyy - hh:mm', post.timestamp),
+          author: post.author,
+        };
+        return newPost;
+      });
+      res.render('index', { posts: formatPosts, user: req.user });
     })
     .catch((err) => next(err));
 });
