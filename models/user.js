@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true, maxLength: 150 },
   password: { type: String, required: true },
   memberstatus: { type: String, required: true },
+  adminstatus: { type: String, required: true },
 });
 
 UserSchema.virtual('url').get(function getUrl() {

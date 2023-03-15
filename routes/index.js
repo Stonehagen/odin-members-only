@@ -62,6 +62,7 @@ router.post('/sign-up', [
           lastName: req.body.lastname,
           email: req.body.email,
           memberstatus: false,
+          adminstatus: false,
           password: hashedPassword,
         });
         return user.save();
