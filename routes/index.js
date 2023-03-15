@@ -11,12 +11,16 @@ const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/log-in');
 };
 
 /* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { user: req.user });
+router.get('/', (req, res, next) => {
+  Post.find()
+    .then((posts) => {
+      res.render('index', { posts, user: req.user });
+    })
+    .catch((err) => next(err));
 });
 
 router.get('/sign-up', (req, res) => res.render('signUp', { user: req.user }));
@@ -83,7 +87,7 @@ router.post('/newMessage', checkAuthenticated, [
     }
     // find User
     const title = `${req.body.message.substring(0, 20)}...`;
-    const author = `${req.user.firstName} + ${req.user.lastName}`;
+    const author = `${req.user.firstName} ${req.user.lastName}`;
     const post = new Post({
       title,
       text: req.body.message,

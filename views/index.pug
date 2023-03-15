@@ -2,6 +2,14 @@ extends layout
 
 block content
   .messageBoard 
+    each post in posts
+      .posting 
+        h3 #{post.title}
+        p #{post.text}
+        if user
+          h4 #{post.author}
+        else 
+          p Please log in to see the author of this message
   if user
     .messageWindow
       form(action='/newMessage' method='POST')

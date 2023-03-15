@@ -6,7 +6,7 @@ const PostSchema = new Schema({
   title: { type: String, required: true, maxLength: 100 },
   text: { type: String, required: true, maxLength: 100 },
   timestamp: { type: Date, default: Date.now },
-  author: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  author: { type: String },
 });
 
 PostSchema.virtual('url').get(function getUrl() {
