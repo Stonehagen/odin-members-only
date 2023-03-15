@@ -6,10 +6,13 @@ block content
       .posting 
         h3 #{post.title}
         p #{post.text}
-        if user.memberstatus
-          h4 #{post.author} <span>#{post.timestamp}</span>
+        if user 
+          if user.memberstatus
+            h4 #{post.author} <span>#{post.timestamp}</span>
+          else 
+            p You have to be a Clubmember to see the Author of this message
         else 
-          p Please log in to see the author of this message
+          p You have to be a Clubmember to see the Author of this message
   if user
     .messageWindow
       form(action='/newMessage' method='POST')

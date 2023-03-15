@@ -96,7 +96,6 @@ router.post('/newMessage', checkAuthenticated, [
       res.render('/', { errors: errors.array(), message: req.body.message });
       return;
     }
-    // find User
     const title = `${req.body.message.substring(0, 20)}...`;
     const author = `${req.user.firstName} ${req.user.lastName}`;
     const post = new Post({
@@ -107,6 +106,49 @@ router.post('/newMessage', checkAuthenticated, [
     post
       .save()
       .then(() => res.redirect('/'))
+      .catch((err) => next(err));
+  },
+]);
+
+router.get('/invite', (req, res) => res.render('invite', { user: req.user }));
+router.post('/invite', checkAuthenticated, [
+  check('invite')
+    .escape()
+    .custom((value) => value === 'ClubHouse'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render('/', { errors: errors.array(), message: req.body.message });
+      return;
+    }
+
+    const userUpdate = { memberstatus: true };
+    User.findByIdAndUpdate(req.user._id, userUpdate, {})
+      .exec()
+      .then(() => {
+        res.redirect('/');
+      })
+      .catch((err) => next(err));
+  },
+]);
+router.get('/admin', (req, res) => res.render('admin', { user: req.user }));
+router.post('/admin', checkAuthenticated, [
+  check('invite')
+    .escape()
+    .custom((value) => value === 'ClubAdmin'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render('/', { errors: errors.array(), message: req.body.message });
+      return;
+    }
+
+    const userUpdate = { adminstatus: true };
+    User.findByIdAndUpdate(req.user._id, userUpdate, {})
+      .exec()
+      .then(() => {
+        res.redirect('/');
+      })
       .catch((err) => next(err));
   },
 ]);

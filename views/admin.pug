@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  if user.adminstatus
+    h3.infoText Hi #{user.firstName}, 
+    p.infoText you are already an Admin.
+    ul.listMenu
+      li.listButton
+        a(href='/') Go Home
+  else
+    form(action="" method="POST")
+      h1 Be a Clubhouse Admin
+      label(for="invite") Admin Code
+      input(name="invite" placeholder="Admin Code" type="text")
+      button Check

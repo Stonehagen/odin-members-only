@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  if user.memberstatus
+    h3.infoText Hi #{user.firstName}, 
+    p.infoText you are already a Clubmember.
+    ul.listMenu
+      li.listButton
+        a(href='/') Go Home
+  else
+    form(action="" method="POST")
+      h1 Be a Clubhouse Member
+      label(for="invite") Invitation Code
+      input(name="invite" placeholder="Invitation Code" type="text")
+      button Check

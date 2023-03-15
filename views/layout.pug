@@ -11,6 +11,13 @@ html
         if user 
           li.listButton
             a(href='/log-out') Log Out
+          if !user.memberstatus
+            li.listButton
+              a(href='/invite') Clubmember
+          else
+            if !user.adminstatus
+              li.listButton
+                a(href='/admin') Admin
         else
           li.listButton
             a(href='/sign-up') Sign Up
