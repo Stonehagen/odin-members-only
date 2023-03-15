@@ -42,7 +42,7 @@ ul {
   height: 70px;
 }
 
-.menu ul {
+ul.listMenu {
   display: flex;
   flex-direction: row;
   gap: 30px;
@@ -50,7 +50,7 @@ ul {
   margin: 0;
 }
 
-.menu ul a {
+li.listButton a {
   background-color: rgb(94, 56, 129);
   color: white;
   padding: 7px 15px;
@@ -58,7 +58,7 @@ ul {
   text-align: center;
 }
 
-.menu ul a:hover {
+li.listButton a:hover {
   background-color: #370e42;
 }
 
@@ -111,4 +111,17 @@ form .errorMsg {
   background-color: rgb(221, 165, 165);
   padding: 10px 10px;
   border-radius: 15px;
+}
+
+p.infoText {
+  max-width: 500px;
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 50px;
+}
+
+h3.infoText {
+  font-size: 2em;
+  margin-bottom: 0;
+  margin-top: 40%;
 }

@@ -1,16 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
+const passport = require('passport');
 
 const router = express.Router();
 const User = require('../models/user');
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { user: req.user });
 });
 
-router.get('/sign-up', (req, res) => res.render('signUp'));
+router.get('/sign-up', (req, res) => res.render('signUp', { user: req.user }));
 router.post('/sign-up', [
   check('firstname')
     .isLength({ min: 3 })
@@ -48,6 +49,17 @@ router.post('/sign-up', [
   },
 ]);
 
-router.get('/log-in', (req, res) => res.render('logIn'));
+router.get('/log-in', (req, res) => res.render('logIn', { user: req.user }));
+router.post(
+  '/log-in',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/log-in',
+  }),
+);
+
+router.get('/log-out', (req, res, next) => {
+  req.logout((err) => (err ? next(err) : res.redirect('/')));
+});
 
 module.exports = router;

@@ -2,19 +2,26 @@ extends layout
 
 block content
 
-  h1 Sign Up
-  form(action="" method="POST")
-    label(for="firstname") First name
-    input(name="firstname" placeholder="first name" type="text")
-    label(for="lastname") Last name
-    input(name="lastname" placeholder="last name" type="text")
-    label(for="email") Email
-    input(name="email" placeholder="email" type="text")
-    label(for="password") Password
-    input(name="password" placeholder="password" type="Password")
-    label(for="passwordconfim") Password confirmation
-    input(name="passwordconfim" placeholder="password confirmation" type="Password")
-    if errors 
-      each error in errors
-        p.errorMsg #{error.param}: #{error.msg}
-    button Sign Up
+  if user 
+    h3.infoText Hi #{user.firstName}, 
+    p.infoText you are already signed up. If you wish to log out and create a new account, you can do so by clicking on the 'Log Out' button located in the top bar of the screen.
+    ul.listMenu
+      li.listButton
+        a(href='/') Go Home
+  else
+    h1 Sign Up
+    form(action="" method="POST")
+      label(for="firstname") First name
+      input(name="firstname" placeholder="first name" type="text")
+      label(for="lastname") Last name
+      input(name="lastname" placeholder="last name" type="text")
+      label(for="email") Email
+      input(name="email" placeholder="email" type="text")
+      label(for="password") Password
+      input(name="password" placeholder="password" type="Password")
+      label(for="passwordconfim") Password confirmation
+      input(name="passwordconfim" placeholder="password confirmation" type="Password")
+      if errors 
+        each error in errors
+          p.errorMsg #{error.param}: #{error.msg}
+      button Sign Up

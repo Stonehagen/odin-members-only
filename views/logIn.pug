@@ -1,11 +1,17 @@
 extends layout
 
 block content
-
-  h1 Log in
-  form(action="" method="POST")
-    label(for="email") Email
-    input(name="email" placeholder="email" type="text")
-    label(for="password") Password
-    input(name="password" placeholder="password" type="Password")
-    button Log in
+  if user 
+    h3.infoText Hi #{user.firstName}, 
+    p.infoText you are already logged in. If you wish to log out, you can do so by clicking on the 'Log Out' button located in the top bar of the screen.
+    ul.listMenu
+      li.listButton
+        a(href='/') Go Home
+  else
+    h1 Log in
+    form(action="" method="POST")
+      label(for="email") Email
+      input(name="email" placeholder="email" type="text")
+      label(for="password") Password
+      input(name="password" placeholder="password" type="Password")
+      button Log in

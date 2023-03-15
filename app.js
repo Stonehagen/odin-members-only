@@ -4,12 +4,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-
-const app = express();
+const User = require('./models/user');
 
 // Set up mongoose connection
 mongoose.set('strictQuery', false);
@@ -21,6 +25,46 @@ async function main() {
 // eslint-disable-next-line no-console
 main().catch((err) => console.log(err));
 
+const app = express();
+
+// session and passport setup
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+    },
+    (username, password, done) => {
+      User.findOne({ email: username })
+        // eslint-disable-next-line consistent-return
+        .then((user) => {
+          if (!user) {
+            return done(null, false, { message: 'Incorrect email' });
+          }
+
+          bcrypt
+            .compare(password, user.password)
+            .then((req) => {
+              if (req) {
+                return done(null, user);
+              }
+              return done(null, false, { message: 'Incorrect password' });
+            })
+            .catch((err) => done(err));
+        })
+        .catch((err) => done(err));
+    },
+  ),
+);
+
+passport.serializeUser((user, done) => done(null, user.id));
+
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then((user) => done(null, user))
+    .catch((err) => done(err));
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -30,7 +74,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+// router setup
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

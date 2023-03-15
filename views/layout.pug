@@ -7,10 +7,14 @@ html
     .header 
       h1 CLUBHOUSE
     .menu 
-      ul
-        li
-          a(href='/sign-up') Sign Up
-        li
-          a(href='/log-in') Log In
+      ul.listMenu
+        if user 
+          li.listButton
+            a(href='/log-out') Log Out
+        else
+          li.listButton
+            a(href='/sign-up') Sign Up
+          li.listButton
+            a(href='/log-in') Log In
     .main
       block content
